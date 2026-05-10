@@ -4,20 +4,24 @@ import { X, ZoomIn, ArrowLeft } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import logoImg from '../img/Logo/RaZZeR Graphics Logo.png';
 
-// Import all artwork images dynamically from subfolders
+// Import both original and thumbnail artworks dynamically
 const imageModules = import.meta.glob('../img/arts/*/*.{png,jpg,jpeg,svg,webp}', { eager: true, import: 'default' });
+const thumbModules = import.meta.glob('../img/arts-thumbnails/*/*.{png,jpg,jpeg,svg,webp}', { eager: true, import: 'default' });
 
-const categoriesMap: Record<string, { title: string, url: string }[]> = {};
+const categoriesMap: Record<string, { title: string, url: string, thumbUrl: string }[]> = {};
 Object.entries(imageModules).forEach(([path, url]) => {
   const parts = path.split('/');
   const categoryName = parts[3]; 
   const filename = parts.pop() || 'Artwork';
   const title = filename.replace(/\.[^/.]+$/, "");
 
+  const thumbPath = path.replace('../img/arts/', '../img/arts-thumbnails/');
+  const thumbUrl = thumbModules[thumbPath] || url;
+
   if (!categoriesMap[categoryName]) {
     categoriesMap[categoryName] = [];
   }
-  categoriesMap[categoryName].push({ title, url: url as string });
+  categoriesMap[categoryName].push({ title, url: url as string, thumbUrl: thumbUrl as string });
 });
 
 const categories = Object.keys(categoriesMap).map(name => ({
@@ -32,7 +36,7 @@ const AccordionGallery = ({ categories, onSelect, isDark }: { categories: any[],
     <div className="flex flex-col md:flex-row h-[80vh] w-full gap-2 md:gap-4 px-2 md:px-0 mt-8 mb-24">
       {categories.map((category, index) => {
         const isHovered = hoveredIndex === index;
-        const coverImage = category.artworks[0]?.url;
+        const coverImage = category.artworks[0]?.thumbUrl || category.artworks[0]?.url;
         const floatingImages = category.artworks.slice(1, 4); // Get next 3 images
         
         // Dynamic name fix for Manipulations
@@ -100,7 +104,7 @@ const AccordionGallery = ({ categories, onSelect, isDark }: { categories: any[],
                         boxShadow: '0 20px 40px rgba(0,0,0,0.5)' // Reduced shadow blur for perf
                       }}
                     >
-                      <img src={img.url} className="w-full h-full object-cover" />
+                      <img src={img.thumbUrl || img.url} className="w-full h-full object-cover" />
                     </motion.div>
                   ))}
                 </motion.div>
@@ -154,7 +158,7 @@ const AccordionGallery = ({ categories, onSelect, isDark }: { categories: any[],
 export default function Gallery() {
   const { isDark } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedImage, setSelectedImage] = useState<{title: string, url: string} | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{title: string, url: string, thumbUrl: string} | null>(null);
 
   const activeCategory = categories.find(c => c.name === selectedCategory);
 
@@ -246,7 +250,7 @@ export default function Gallery() {
                     } hover:border-[#A6FF00]/50 hover:shadow-[0_0_25px_rgba(166,255,0,0.3)] transition-all duration-300`}
                   >
                     <img 
-                      src={artwork.url} 
+                      src={artwork.thumbUrl || artwork.url} 
                       alt={artwork.title} 
                       className="w-full h-full object-cover"
                       loading="lazy"
