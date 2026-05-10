@@ -1,11 +1,22 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { ExternalLink, Code } from 'lucide-react';
+import fossilHuntBg from '../img/fossilHunt/background.png';
 
 export default function Projects() {
   const { isDark } = useTheme();
 
   const projects = [
+    {
+      title: 'Fossil Hunt AR: Reviving the Lost Wilderness',
+      category: 'AR / Game Development',
+      description:
+        'Transforming traditional museum learning into an immersive, active exploration journey. This project utilizes Vuforia Image Tracking and persistent game logic to bridge the gap between static exhibits and interactive education. By "importing" extinct species—like dinosaurs—into local Sri Lankan galleries, it provides a high-impact, low-cost solution for natural history institutions to engage younger audiences through tactile excavation and knowledge-locked progression.',
+      tags: ['Unity', 'C#', 'Vuforia', 'AR', 'Education'],
+      color: 'from-blue-500 to-green-500',
+      image: fossilHuntBg,
+      link: 'https://fossilhuntar.netlify.app/',
+    },
     {
       title: 'Cyber Legends',
       category: 'Game Development',
@@ -93,29 +104,53 @@ export default function Projects() {
               } backdrop-blur-xl hover:border-[#A6FF00]/50 transition-all duration-300`}
             >
               <div
-                className={`h-48 bg-gradient-to-br ${project.color} relative overflow-hidden`}
+                className={`h-48 ${
+                  project.image ? '' : `bg-gradient-to-br ${project.color}`
+                } relative overflow-hidden`}
+                style={
+                  project.image
+                    ? {
+                        backgroundImage: `url(${project.image})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                      }
+                    : {}
+                }
               >
-                <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileHover={{ scale: 1 }}
-                    className="flex space-x-4"
-                  >
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="flex space-x-4 scale-90 group-hover:scale-100 transition-transform duration-300">
+                    {project.link ? (
+                      <motion.a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className={`p-3 rounded-lg flex items-center justify-center ${
+                          isDark ? 'bg-[#A6FF00]/90' : 'bg-gray-900/90'
+                        } ${
+                          isDark ? 'text-black' : 'text-white'
+                        } backdrop-blur-xl`}
+                      >
+                        <ExternalLink size={20} />
+                      </motion.a>
+                    ) : (
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className={`p-3 rounded-lg flex items-center justify-center ${
+                          isDark ? 'bg-[#A6FF00]/90' : 'bg-gray-900/90'
+                        } ${
+                          isDark ? 'text-black' : 'text-white'
+                        } backdrop-blur-xl`}
+                      >
+                        <ExternalLink size={20} />
+                      </motion.button>
+                    )}
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      className={`p-3 rounded-lg ${
-                        isDark ? 'bg-[#A6FF00]/90' : 'bg-gray-900/90'
-                      } ${
-                        isDark ? 'text-black' : 'text-white'
-                      } backdrop-blur-xl`}
-                    >
-                      <ExternalLink size={20} />
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className={`p-3 rounded-lg ${
+                      className={`p-3 rounded-lg flex items-center justify-center ${
                         isDark
                           ? 'bg-white/10 text-white'
                           : 'bg-gray-900/10 text-gray-900'
@@ -125,7 +160,7 @@ export default function Projects() {
                     >
                       <Code size={20} />
                     </motion.button>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
 
