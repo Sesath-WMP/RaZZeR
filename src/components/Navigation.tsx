@@ -16,6 +16,7 @@ export default function Navigation() {
     { path: '/skills', label: 'Skills' },
     { path: '/projects', label: 'Projects' },
     { path: '/gallery', label: 'Gallery' },
+    { path: '/packages', label: 'Packages' },
     { path: '/gaming', label: 'Gaming' },
     { path: '/resume', label: 'Resume' },
     { path: '/ppw-portfolio', label: 'PPW Portfolio' },

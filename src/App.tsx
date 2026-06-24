@@ -8,6 +8,7 @@ import About from './pages/About';
 import Skills from './pages/Skills';
 import Projects from './pages/Projects';
 import Gallery from './pages/Gallery';
+import Packages from './pages/Packages';
 import Gaming from './pages/Gaming';
 import Resume from './pages/Resume';
 import Contact from './pages/Contact';
@@ -51,6 +52,7 @@ function AppContent() {
             <Route path="/skills" element={<PageWrapper><Skills /></PageWrapper>} />
             <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
             <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
+            <Route path="/packages" element={<PageWrapper><Packages /></PageWrapper>} />
             <Route path="/gaming" element={<PageWrapper><Gaming /></PageWrapper>} />
             <Route path="/resume" element={<PageWrapper><Resume /></PageWrapper>} />
             <Route path="/ppw-portfolio" element={<PageWrapper><PPWPortfolio /></PageWrapper>} />
