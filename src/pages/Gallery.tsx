@@ -3,6 +3,7 @@ import { useTheme } from '../context/ThemeContext';
 import { X, ZoomIn, ArrowLeft } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import logoImg from '../img/Logo/RaZZeR Graphics Logo.png';
+import Packages from './Packages';
 
 // Import both original and thumbnail artworks dynamically
 const imageModules = import.meta.glob('../img/arts/*/*.{png,jpg,jpeg,svg,webp}', { eager: true, import: 'default' });
@@ -328,6 +329,7 @@ export default function Gallery() {
           </motion.div>
         )}
       </AnimatePresence>
+      <Packages />
     </div>
   );
 }

@@ -47,7 +47,7 @@ export default function Packages() {
   const { isDark } = useTheme();
 
   return (
-    <div className="min-h-screen pt-24 pb-16 px-4 flex flex-col justify-center">
+    <div className="mt-24 pb-16 px-4 flex flex-col justify-center border-t border-white/10 pt-16">
       <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
