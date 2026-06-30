@@ -7,7 +7,7 @@ const packages = [
     name: 'Starter Package',
     price: '100,000',
     features: [
-      'Mother Art Work',
+      'Main artwork',
       'Ticket Design',
       '2 size Banner Design',
       'x Banner',
@@ -20,7 +20,7 @@ const packages = [
     name: 'Top Selling Package',
     price: '140,000',
     features: [
-      'Mother Art Work',
+      'Main artwork',
       'Ticket Design',
       '3 Flyer Design',
       '2 Banner Design',
@@ -33,11 +33,12 @@ const packages = [
   },
   {
     name: 'Premium Package',
-    price: '200,000',
+    price: '180,000',
     features: [
       'Unlimited Post',
       'Unlimited Banner',
-      '*For 1 Month'
+      '*For 1 Month',
+      '*Conditions applied'
     ],
     popular: false
   }
